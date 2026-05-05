@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Walt Landing Page
 
-## Getting Started
+A modern, minimal, dark-themed landing page for **Walt**, a privacy-first mobile app for tracking expenses and income.
 
-First, run the development server:
+## 📱 About Walt
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Walt is designed for users who value financial privacy. Unlike traditional trackers, Walt keeps 100% of your data local and private—no cloud, no data harvesting. It leverages local AI to provide deep financial insights directly on your device.
+
+### Key Features
+
+- 🔒 **Biometric Security:** Protect your data with Fingerprint or FaceID.
+- 🤖 **AI Financial Insights:** Personalized advice and spending patterns powered by local AI.
+- 🛡️ **100% Local & Private:** No cloud storage; your data stays on your device.
+- 📊 **Reports & PDF Export:** Visualize spending habits and export high-quality reports.
+- 🌙 **Dark Mode:** A beautiful, eye-friendly interface.
+- 📱 **Android Exclusive:** Currently distributed via direct APK with Google Play coming soon.
+
+## 🚀 Tech Stack
+
+- **Framework:** [Next.js 15 (App Router)](https://nextjs.org/)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+
+## 🎨 Design Philosophy
+
+- **Minimalist Aesthetic:** Apple-level simplicity with generous spacing.
+- **Dark Mode Default:** Sleek zinc-based colors with purple/indigo accents.
+- **Pixel 9 Mockups:** Custom-designed phone frames that align perfectly with the app's screenshots.
+- **Smooth Interaction:** Subtle fade-ins and hover effects for a premium feel.
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v20 or higher)
+- [Bun](https://bun.sh/) (recommended) or npm
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   cd walt-web
+   ```
+
+2. Install dependencies:
+   ```bash
+   bun install
+   ```
+
+3. Run the development server:
+   ```bash
+   bun dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📂 Project Structure
+
+```text
+walt-web/
+├── app/               # Next.js App Router (Layout, Page, Globals)
+├── components/        # Reusable UI components (Hero, Features, Pixel9Mockup, etc.)
+├── public/
+│   ├── apks/          # Local APK distribution
+│   └── screenshots/   # Actual app screenshots used in mockups
+└── tailwind.config.ts # Styling configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Distribution
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The landing page is configured to serve the Android APK directly from `/public/apks/walt.apk`. Users can download it using the "Download Walt (APK)" buttons throughout the site.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ for financial privacy. © 2026 Walt.
