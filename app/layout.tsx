@@ -13,8 +13,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Walt | Privacy-First Android Expense Tracker",
-  description: "Take control of your finances with Walt. 100% private, local-first Android app for tracking expenses and income.",
+  title: "Walt | Privacy-First Expense Tracker",
+  description: "Take control of your finances with Walt. A 100% private, local-first Android app for tracking expenses and income with zero data collection.",
+  keywords: ["expense tracker", "privacy-first", "finance app", "budgeting", "android expense tracker", "local-first app", "walt"],
+  authors: [{ name: "Walt Team" }],
+  openGraph: {
+    title: "Walt | Privacy-First Expense Tracker",
+    description: "Your financial data belongs to you. Track expenses locally with Walt.",
+    url: "https://walt-web.vercel.app", // Adjust if you have a real URL
+    siteName: "Walt",
+    images: [
+      {
+        url: "/screenshots/home.png",
+        width: 1200,
+        height: 630,
+        alt: "Walt App Interface",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Walt | Privacy-First Expense Tracker",
+    description: "The most private way to track your expenses on Android.",
+    images: ["/screenshots/home.png"],
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

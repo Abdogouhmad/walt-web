@@ -11,11 +11,12 @@ const Hero = () => {
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-purple-600/20 blur-[120px] rounded-full -z-10" />
 
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="flex-1 text-center lg:text-left"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
@@ -25,11 +26,11 @@ const Hero = () => {
             Track. Understand. <br />
             <span className="gradient-text">Grow. Walt.</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-lg leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
             Take control of your finances with zero compromise on privacy. 
             Everything stays on your device, exactly where it belongs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a 
               href="/apks/walt.apk" 
               download
@@ -50,7 +51,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative hidden lg:block"
+          className="flex-1 relative hidden md:block w-full max-w-2xl lg:max-w-none"
         >
           <div className="relative z-10 grid grid-cols-3 gap-4 items-center">
             {/* Phone Mockup 1 */}

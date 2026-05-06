@@ -10,10 +10,10 @@ const Pixel9Mockup = ({ children, className = "", screenshot }: Pixel9MockupProp
   return (
     <div className={`relative mx-auto ${className}`}>
       {/* Outer Frame */}
-      <div className="relative aspect-[9/19.5] w-full bg-zinc-900 rounded-[2.25rem] border-[7px] border-zinc-800 shadow-2xl overflow-hidden ring-1 ring-white/10">
+      <div className="relative aspect-[9/19.5] w-full bg-zinc-900 rounded-[1.5rem] border-[6px] border-zinc-800 shadow-2xl overflow-hidden ring-1 ring-white/10">
         
         {/* Screen Content */}
-        <div className="absolute inset-0 bg-black overflow-hidden rounded-[1.8rem]">
+        <div className="absolute inset-0 bg-black overflow-hidden rounded-[1.2rem]">
           {screenshot ? (
             <img 
               src={screenshot} 
