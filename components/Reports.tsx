@@ -77,7 +77,7 @@ const Reports = () => {
               <p className="text-white font-bold text-xs">AI Financial Advice</p>
             </div>
             <p className="text-gray-300 text-[11px] leading-relaxed">
-              "You've spent 15% more on Dining Out this month. Consider setting a budget of $200 for next month to save $45."
+              &quot;You&apos;ve spent 15% more on Dining Out this month. Consider setting a budget of $200 for next month to save $45.&quot;
             </p>
           </motion.div>
 

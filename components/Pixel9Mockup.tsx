@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface Pixel9MockupProps {
   children?: React.ReactNode;
@@ -15,11 +16,12 @@ const Pixel9Mockup = ({ children, className = "", screenshot }: Pixel9MockupProp
         {/* Screen Content */}
         <div className="absolute inset-0 bg-black overflow-hidden rounded-[1.2rem]">
           {screenshot ? (
-            <img 
+            <Image 
               src={screenshot} 
               alt="App Screenshot" 
-              className="w-full h-full object-cover [image-rendering:auto] brightness-[1.02] contrast-[1.02]"
-              loading="eager"
+              fill
+              className="object-cover [image-rendering:auto] brightness-[1.02] contrast-[1.02]"
+              priority
             />
           ) : (
             children

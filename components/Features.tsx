@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Lock, BarChart3, Moon, UserCircle, Sparkles, Fingerprint } from "lucide-react";
+import { Lock, BarChart3, Moon, UserCircle, Sparkles, Fingerprint } from "lucide-react";
 
 const features = [
   {
@@ -44,7 +44,7 @@ const Features = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             Everything you need. <br />
-            <span className="text-gray-500">Nothing you don't.</span>
+            <span className="text-gray-500">Nothing you don&apos;t.</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             Walt is built with a focus on simplicity and privacy. We provide powerful tools

@@ -20,7 +20,7 @@ const Screenshots = () => {
             <span className="text-indigo-500">For a better focus.</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Experience the app that's as easy to use as it is beautiful to look at.
+            Experience the app that&apos;s as easy to use as it is beautiful to look at.
             Designed with simplicity in mind.
           </p>
         </div>

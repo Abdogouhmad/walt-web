@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Apple, PlayCircle } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import Pixel9Mockup from "./Pixel9Mockup";
 
 const Download = () => {
