@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,14 +14,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000",
+  ),
   title: "Walt | Privacy-First Expense Tracker",
-  description: "Take control of your finances with Walt. A 100% private, local-first Android app for tracking expenses and income with zero data collection.",
-  keywords: ["expense tracker", "privacy-first", "finance app", "budgeting", "android expense tracker", "local-first app", "walt"],
+  description:
+    "Take control of your finances with Walt. A 100% private, local-first Android app for tracking expenses and income with zero data collection.",
+  keywords: [
+    "expense tracker",
+    "privacy-first",
+    "finance app",
+    "budgeting",
+    "android expense tracker",
+    "local-first app",
+    "walt",
+  ],
   authors: [{ name: "Walt Team" }],
   openGraph: {
     title: "Walt | Privacy-First Expense Tracker",
-    description: "Your financial data belongs to you. Track expenses locally with Walt.",
-    url: "https://walt-web.vercel.app", // Adjust if you have a real URL
+    description:
+      "Your financial data belongs to you. Track expenses locally with Walt.",
+    url: "https://waltapp.vercel.app/", // Adjust if you have a real URL
     siteName: "Walt",
     images: [
       {
