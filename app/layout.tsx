@@ -14,11 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000",
-  ),
+  metadataBase: new URL("https://waltapp.vercel.app"),
   title: "Walt | Privacy-First Expense Tracker",
   description:
     "Take control of your finances with Walt. A 100% private, local-first Android app for tracking expenses and income with zero data collection.",
@@ -36,13 +32,13 @@ export const metadata: Metadata = {
     title: "Walt | Privacy-First Expense Tracker",
     description:
       "Your financial data belongs to you. Track expenses locally with Walt.",
-    url: "https://waltapp.vercel.app/", // Adjust if you have a real URL
+    url: "https://waltapp.vercel.app",
     siteName: "Walt",
     images: [
       {
         url: "/screenshots/home.png",
-        width: 1200,
-        height: 630,
+        width: 1080,
+        height: 2424,
         alt: "Walt App Interface",
       },
     ],

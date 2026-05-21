@@ -4,7 +4,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Wallet, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -26,7 +30,7 @@ const Navbar = () => {
   return (
     <Disclosure as="nav" className="fixed top-0 w-full z-50">
       {({ open }) => (
-        <div 
+        <div
           className={`transition-all duration-300 ${
             scrolled || open
               ? "bg-black/80 backdrop-blur-lg border-b border-white/10 py-4"
@@ -36,10 +40,12 @@ const Navbar = () => {
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2 group z-50">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 bg-linear-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
                   <Wallet className="text-white w-6 h-6" />
                 </div>
-                <span className="text-2xl font-bold tracking-tight text-white">Walt</span>
+                <span className="text-2xl font-bold tracking-tight text-white">
+                  Walt
+                </span>
               </Link>
 
               {/* Desktop Navigation */}
@@ -80,15 +86,15 @@ const Navbar = () => {
             {open && (
               <DisclosurePanel
                 static
-                as={motion.div}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                transition={{ duration: 0.3, ease: "easeInOut" } as any}
-                className="md:hidden border-t border-white/5 mt-4"
+                className="md:hidden border-t border-white/5 mt-4 overflow-hidden"
               >
-                <div className="px-6 py-8 flex flex-col gap-6 bg-black/40 backdrop-blur-xl">
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="px-6 py-8 flex flex-col gap-6 bg-black/40 backdrop-blur-xl"
+                >
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -108,7 +114,7 @@ const Navbar = () => {
                       Download Now
                     </DisclosureButton>
                   </Link>
-                </div>
+                </motion.div>
               </DisclosurePanel>
             )}
           </AnimatePresence>
