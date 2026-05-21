@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://waltapp.vercel.app"),
   title: "Walt | Privacy-First Expense Tracker",
   description: "Take control of your finances with Walt. A 100% private, local-first Android app for tracking expenses and income with zero data collection.",
   keywords: ["expense tracker", "privacy-first", "finance app", "budgeting", "android expense tracker", "local-first app", "walt"],
@@ -20,13 +21,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Walt | Privacy-First Expense Tracker",
     description: "Your financial data belongs to you. Track expenses locally with Walt.",
-    url: "https://walt-web.vercel.app", // Adjust if you have a real URL
+    url: "https://waltapp.vercel.app",
     siteName: "Walt",
     images: [
       {
         url: "/screenshots/home.png",
-        width: 1200,
-        height: 630,
+        width: 1080,
+        height: 2424,
         alt: "Walt App Interface",
       },
     ],

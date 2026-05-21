@@ -80,14 +80,15 @@ const Navbar = () => {
             {open && (
               <DisclosurePanel
                 static
-                as={motion.div}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="md:hidden border-t border-white/5 mt-4"
+                className="md:hidden border-t border-white/5 mt-4 overflow-hidden"
               >
-                <div className="px-6 py-8 flex flex-col gap-6 bg-black/40 backdrop-blur-xl">
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="px-6 py-8 flex flex-col gap-6 bg-black/40 backdrop-blur-xl"
+                >
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -107,7 +108,7 @@ const Navbar = () => {
                       Download Now
                     </DisclosureButton>
                   </Link>
-                </div>
+                </motion.div>
               </DisclosurePanel>
             )}
           </AnimatePresence>
