@@ -31,7 +31,7 @@ const Download = () => {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="/apks/walt.apk"
+                  href="https://github.com/Abdogouhmad/walt/releases/latest/download/walt.apk"
                   download
                   className="bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors shadow-xl"
                 >

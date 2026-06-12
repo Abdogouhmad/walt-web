@@ -27,19 +27,19 @@ const Hero = () => {
             <span className="gradient-text">Grow. Walt.</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-            Take control of your finances with zero compromise on privacy. 
+            Take control of your finances with zero compromise on privacy.
             Everything stays on your device, exactly where it belongs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a 
-              href="/apks/walt.apk" 
+            <a
+              href="https://github.com/Abdogouhmad/walt/releases/latest/download/walt.apk"
               download
               className="gradient-bg text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-purple-500/20"
             >
               Download Walt (APK) <Download className="w-5 h-5" />
             </a>
-            <a 
-              href="#features" 
+            <a
+              href="#features"
               className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-colors border border-white/10"
             >
               See Features <ArrowRight className="w-5 h-5" />
@@ -67,7 +67,7 @@ const Hero = () => {
               <Pixel9Mockup screenshot="/screenshots/add_tx.png" className="w-full" />
             </div>
           </div>
-          
+
           {/* Decorative Elements */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/10 blur-3xl rounded-full" />
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full" />
