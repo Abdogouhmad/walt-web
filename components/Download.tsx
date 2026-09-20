@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { PlayCircle } from "lucide-react";
+import { PlayCircle, Smartphone } from "lucide-react";
 import Pixel9Mockup from "./Pixel9Mockup";
+import { APK_VARIANTS } from "./downloads";
 
 const Download = () => {
+  const [variant, setVariant] = useState(APK_VARIANTS[0]);
   return (
     <section
       id="download"
@@ -31,7 +33,7 @@ const Download = () => {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://github.com/Abdogouhmad/walt/releases/latest/download/walt.apk"
+                  href={variant.url}
                   download
                   className="bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors shadow-xl"
                 >
@@ -51,6 +53,36 @@ const Download = () => {
                     </p>
                     <p className="text-lg leading-tight">Google Play</p>
                   </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <p className="text-sm text-gray-400 mb-3 flex items-center gap-2">
+                  <Smartphone className="w-4 h-4" />
+                  Select your device:
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {APK_VARIANTS.map((v) => (
+                    <button
+                      key={v.id}
+                      onClick={() => setVariant(v)}
+                      className={`text-left px-4 py-3 rounded-xl border transition-colors ${
+                        variant.id === v.id
+                          ? "bg-purple-600/20 border-purple-500 text-white"
+                          : "bg-zinc-900/60 border-white/10 text-gray-400 hover:border-white/30"
+                      }`}
+                    >
+                      <p className="font-semibold text-sm flex items-center gap-2">
+                        {v.label}
+                        {v.recommended && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 uppercase">
+                            Recommended
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-xs opacity-70">{v.description}</p>
+                    </button>
+                  ))}
                 </div>
               </div>
             </motion.div>

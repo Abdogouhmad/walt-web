@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Pixel9Mockup from "./Pixel9Mockup";
+import { APK_VARIANTS } from "./downloads";
 
 const Hero = () => {
   return (
@@ -32,7 +33,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a
-              href="https://github.com/Abdogouhmad/walt/releases/latest/download/walt.apk"
+              href={APK_VARIANTS[0].url}
               download
               className="gradient-bg text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl shadow-purple-500/20"
             >

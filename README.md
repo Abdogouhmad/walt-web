@@ -71,7 +71,7 @@ walt-web/
 
 ## 📦 Distribution
 
-The landing page is configured to serve the Android APK directly from `/public/apks/walt.apk`. Users can download it using the "Download Walt (APK)" buttons throughout the site.
+Android APK downloads are served from the [Walt GitHub Releases](https://github.com/Abdogouhmad/walt/releases). The "Download Walt (APK)" buttons throughout the site point directly to the release assets, with a device-type selector (Universal / arm64-v8a / armeabi-v7a) in the download section.
 
 ---
 
