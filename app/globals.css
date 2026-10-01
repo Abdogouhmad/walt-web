@@ -1,58 +1,390 @@
 @import "tailwindcss";
+@import "./styles/palettes.css";
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* -------------------------------------------------------------------------- */
+/* Design system                                                               */
+/*                                                                             */
+/* Colours come from the generated Material 3 `tonalSpot` schemes in          */
+/* `styles/palettes.css`, which are switched by `data-palette` / `data-theme`  */
+/* on <html> (or on any nested element, which is how the themes showcase        */
+/* recolours a single mockup in isolation).                                     */
+/*                                                                             */
+/* `@theme inline` rather than plain `@theme` matters here: it inlines          */
+/* `var(--md-*)` straight into each utility instead of publishing a resolved    */
+/* value on `:root`. That is what lets a palette set on a nested wrapper        */
+/* actually take effect.                                                        */
+/* -------------------------------------------------------------------------- */
+
+@theme inline {
+  /* -- Material 3 roles --------------------------------------------------- */
+  --color-primary: var(--md-primary);
+  --color-on-primary: var(--md-on-primary);
+  --color-primary-container: var(--md-primary-container);
+  --color-on-primary-container: var(--md-on-primary-container);
+  --color-primary-fixed: var(--md-primary-fixed);
+  --color-primary-fixed-dim: var(--md-primary-fixed-dim);
+  --color-on-primary-fixed: var(--md-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--md-on-primary-fixed-variant);
+
+  --color-secondary: var(--md-secondary);
+  --color-on-secondary: var(--md-on-secondary);
+  --color-secondary-container: var(--md-secondary-container);
+  --color-on-secondary-container: var(--md-on-secondary-container);
+
+  --color-tertiary: var(--md-tertiary);
+  --color-on-tertiary: var(--md-on-tertiary);
+  --color-tertiary-container: var(--md-tertiary-container);
+  --color-on-tertiary-container: var(--md-on-tertiary-container);
+
+  --color-error: var(--md-error);
+  --color-on-error: var(--md-on-error);
+  --color-error-container: var(--md-error-container);
+  --color-on-error-container: var(--md-on-error-container);
+
+  --color-surface: var(--md-surface);
+  --color-on-surface: var(--md-on-surface);
+  --color-surface-variant: var(--md-surface-variant);
+  --color-on-surface-variant: var(--md-on-surface-variant);
+  --color-surface-dim: var(--md-surface-dim);
+  --color-surface-bright: var(--md-surface-bright);
+  --color-surface-container-lowest: var(--md-surface-container-lowest);
+  --color-surface-container-low: var(--md-surface-container-low);
+  --color-surface-container: var(--md-surface-container);
+  --color-surface-container-high: var(--md-surface-container-high);
+  --color-surface-container-highest: var(--md-surface-container-highest);
+  --color-inverse-surface: var(--md-inverse-surface);
+  --color-inverse-on-surface: var(--md-inverse-on-surface);
+  --color-inverse-primary: var(--md-inverse-primary);
+  --color-outline: var(--md-outline);
+  --color-outline-variant: var(--md-outline-variant);
+  --color-shadow: var(--md-shadow);
+  --color-scrim: var(--md-scrim);
+
+  --color-income: var(--md-income);
+  --color-expense: var(--md-expense);
+  --color-warning: var(--md-warning);
+  --color-income-container: var(--md-income-container);
+  --color-expense-container: var(--md-expense-container);
+  --color-warning-container: var(--md-warning-container);
+
+  --color-series-1: var(--md-series-1);
+  --color-series-2: var(--md-series-2);
+  --color-series-3: var(--md-series-3);
+  --color-series-4: var(--md-series-4);
+  --color-series-5: var(--md-series-5);
+
+  /* -- Type --------------------------------------------------------------- */
+  --font-sans: var(--font-walt), ui-sans-serif, system-ui, sans-serif;
+
+  /* -- Shape (mirrors AppRadius in the app) ------------------------------ */
+  --radius-xs: 0.5rem; /*  8 */
+  --radius-sm: 0.75rem; /* 12 */
+  --radius-md: 1rem; /* 16 */
+  --radius-lg: 1.25rem; /* 20 */
+  --radius-xl: 1.75rem; /* 28 */
+  --radius-pill: 999px;
+
+  /* -- Motion ------------------------------------------------------------- */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 }
 
+/*
+ * Native UI (scrollbars, form controls, the canvas background) follows the same
+ * scheme as the palette tokens, so it never flashes a mismatched colour.
+ */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  color-scheme: light dark;
+}
+[data-scheme="light"] {
+  color-scheme: light;
+}
+[data-scheme="dark"],
+[data-scheme="amoled"] {
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * A `dark:` variant that means "the page is currently dark", whether that came
+ * from the OS or from the visitor's toggle.
+ */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    :where(:not([data-scheme="light"]) *, :not([data-scheme="light"])) {
+      @slot;
+    }
+  }
+  :where([data-scheme="dark"] *, [data-scheme="dark"], [data-scheme="amoled"] *, [data-scheme="amoled"]) {
+    @slot;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+/* -------------------------------------------------------------------------- */
+/* Base                                                                        */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Anchored sections clear the sticky header. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--md-surface);
+    color: var(--md-on-surface);
+    font-family: var(--font-walt), ui-sans-serif, system-ui, sans-serif;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  /* Money is always tabular, in the app and here. */
+  .tabular,
+  [class*="font-tabular"] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--md-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Firefox / WebKit scrollbar polish for the horizontal screenshot rail. */
+  @supports (scrollbar-width: thin) {
+    .scroll-rail {
+      scrollbar-width: thin;
+      scrollbar-color: var(--md-outline-variant) transparent;
+    }
+  }
+
+  /*
+   * Keyboard-only skip link. It is the first focusable thing on the page and is
+   * parked off-screen until focused, then lands below the sticky header.
+   */
+  .skip-link {
+    position: fixed;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    z-index: 100;
+    translate: 0 -200%;
+    border-radius: var(--radius-pill);
+    background-color: var(--md-primary);
+    color: var(--md-on-primary);
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    transition: translate 180ms var(--ease-standard);
+  }
+
+  .skip-link:focus-visible {
+    translate: 0 0;
+  }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Components                                                                   */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  /* The page shell: a calm vertical rhythm between anchored sections. */
+  .section {
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  /* A single quiet surface for grouping — never a card inside a card. */
+  .surface-card {
+    background-color: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--radius-xl);
+  }
+
+  /* Frosted, translucent chrome for the sticky header and floating bars. */
+  .surface-blur {
+    background-color: color-mix(in oklab, var(--md-surface) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  /*
+   * Tonal icon bubble used by the bento tiles and the FAQ/download checklists.
+   *
+   * 40dp circle holding a 20dp icon, matching `SettingsLeading` in the app —
+   * which every other icon container there also uses, via `BoxShape.circle`. This
+   * was a 48dp box with a 20px radius, i.e. 42% of its own width, so it read as a
+   * squircle that matched nothing the app draws.
+   */
+  .icon-plate {
+    display: grid;
+    place-items: center;
+    flex: none;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+  }
+
+  /* Hairline rule that inherits the outline role. */
+  .rule {
+    block-size: 1px;
+    background-color: var(--md-outline-variant);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Utilities                                                                   */
+/* -------------------------------------------------------------------------- */
 
 @layer utilities {
-  .text-balance {
+  /*
+   * Expressive display type: optically large, tightly tracked.
+   *
+   * `wght` is named alongside `opsz` on purpose. `font-variation-settings`
+   * replaces the whole low-level axis set, and while a spec-compliant engine
+   * falls back to `font-weight` for any axis it does not mention, naming both
+   * removes the ambiguity entirely — an engine that reset `wght` to the font
+   * default would render every heading at 400, which reads as "the type looks a
+   * bit thin" rather than as a bug anyone would report.
+   */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.03;
     text-wrap: balance;
+    font-variation-settings: "opsz" 144, "wght" 800;
+  }
+
+  .headline {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    text-wrap: balance;
+    font-variation-settings: "opsz" 72, "wght" 700;
+  }
+
+  .lede {
+    text-wrap: pretty;
+    line-height: 1.6;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Slow float used by the hero mockups. */
+  @keyframes walt-float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -10px;
+    }
+  }
+
+  @keyframes walt-float-slow {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -16px;
+    }
+  }
+
+  /* Envelope for the floating-nav demo: 4 destination icons, one expanding. */
+  @keyframes walt-pill-in {
+    from {
+      inline-size: 0;
+      opacity: 0;
+    }
+    to {
+      inline-size: 1fr;
+      opacity: 1;
+    }
+  }
+
+  @keyframes walt-rise {
+    from {
+      opacity: 0;
+      translate: 0 14px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  @keyframes walt-pulse-ring {
+    0% {
+      scale: 0.6;
+      opacity: 0.7;
+    }
+    70%,
+    100% {
+      scale: 2.4;
+      opacity: 0;
+    }
+  }
+
+  .animate-float {
+    animation: walt-float 7s var(--ease-standard) infinite;
+  }
+
+  .animate-float-slow {
+    animation: walt-float-slow 9s var(--ease-standard) infinite;
+  }
+
+  .animate-rise {
+    animation: walt-rise 0.5s var(--ease-emphasized) both;
+  }
+
+  /* Scroll-reveal for sections: opt-in via `data-reveal`. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: walt-rise 0.55s var(--ease-emphasized) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
   }
 }
 
-/* Custom Gradients */
-.gradient-text {
-  background: linear-gradient(to right, #a855f7, #6366f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+/* -------------------------------------------------------------------------- */
+/* Reduced motion                                                              */
+/* -------------------------------------------------------------------------- */
 
-.gradient-bg {
-  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.gradient-border {
-  position: relative;
-  background: #111;
-  border-radius: 1rem;
-}
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(to bottom right, #a855f7, #6366f1);
-  border-radius: 1.1rem;
-  z-index: -1;
-  opacity: 0.3;
+  [data-reveal] {
+    animation: none !important;
+  }
 }
