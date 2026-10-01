@@ -1,66 +1,93 @@
-import { LuWallet } from "react-icons/lu";
-import { FaGithub } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { footer, site } from "@/content/site";
+import { WaltMark } from "@/components/ui/WaltMark";
 
-import Link from "next/link";
+const YEAR_START = 2025;
 
-const Footer = () => {
+export function Footer() {
   return (
-    <footer className="py-12 bg-black border-t border-white/5">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-linear-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <LuWallet className="text-white w-5 h-5" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">
-              Walt
-            </span>
+    <footer className="border-t border-outline-variant bg-surface-container-lowest">
+      <div className="shell py-14 sm:py-16">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_2fr]">
+          <div className="max-w-sm">
+            <a
+              href="#top"
+              className="inline-flex items-center gap-2.5 rounded-pill text-on-surface transition-opacity hover:opacity-80"
+            >
+              <WaltMark className="size-9" />
+              <span className="headline text-xl">{site.name}</span>
+            </a>
+            <p className="lede mt-4 text-on-surface-variant">{footer.blurb}</p>
+            <p className="mt-4 text-sm text-on-surface-variant">
+              <a
+                href={`mailto:${site.email}`}
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                {site.email}
+              </a>
+            </p>
           </div>
 
-          <div className="flex gap-8">
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Contact
-            </Link>
-          </div>
-
-          <div className="flex gap-6">
-            <Link
-              href="https://x.com/a3bdor7man"
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              <FaXTwitter className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://github.com/Abdogouhmad"
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              <FaGithub className="w-5 h-5" />
-            </Link>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {footer.columns.map((column) => (
+              <nav key={column.title} aria-labelledby={`footer-${column.title}`}>
+                <h2
+                  id={`footer-${column.title}`}
+                  className="text-sm font-bold tracking-[0.12em] text-on-surface uppercase"
+                >
+                  {column.title}
+                </h2>
+                <ul className="mt-4 flex flex-col gap-2.5">
+                  {column.links.map((link) => {
+                    const external = link.href.startsWith("http");
+                    return (
+                      <li key={link.label}>
+                        <a
+                          href={link.href}
+                          {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+                          className="inline-flex items-center gap-1.5 rounded-xs text-on-surface-variant underline-offset-4 transition-colors hover:text-primary hover:underline"
+                        >
+                          {link.label}
+                          {external ? (
+                            <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M14 5h5v5M19 5l-8 8M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                            </svg>
+                          ) : null}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            ))}
           </div>
         </div>
 
-        <div className="text-center text-gray-600 text-sm">
-          © 2026 Walt. All rights reserved. Built with privacy in mind.
+        <div className="mt-12 flex flex-col gap-4 border-t border-outline-variant pt-8 text-sm text-on-surface-variant sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {YEAR_START}–{site.copyrightYear} {site.name}.{" "}
+            <span className="font-semibold text-on-surface">{site.license}</span> licensed.
+          </p>
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span>{footer.tagline}</span>
+            <a
+              href={site.repository}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="rounded-xs font-semibold text-on-surface underline-offset-4 hover:text-primary hover:underline"
+            >
+              Source
+            </a>
+            <a
+              href={`${site.repository}/releases`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="rounded-xs font-semibold text-on-surface underline-offset-4 hover:text-primary hover:underline"
+            >
+              Releases
+            </a>
+          </p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

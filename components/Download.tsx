@@ -1,113 +1,141 @@
-"use client";
+import { download, site } from "@/content/site";
+import { formatBytes, formatReleaseDate, type Release } from "@/lib/release";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { DownloadSelector } from "@/components/DownloadSelector";
+import { Badge } from "@/components/ui/Badge";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { PlayCircle, Smartphone } from "lucide-react";
-import Pixel9Mockup from "./Pixel9Mockup";
-import { APK_VARIANTS } from "./downloads";
+/**
+ * The download section.
+ *
+ * Every version number, size and link here comes from the release the app's own
+ * pipeline published — nothing is hardcoded — so this section cannot point at a
+ * superseded APK. When GitHub is unreachable the fallback data is used and says
+ * so out loud, because a confidently wrong version number is worse than an
+ * admitted one.
+ */
+export function Download({ release }: { release: Release }) {
+  const date = formatReleaseDate(release.publishedAt);
 
-const Download = () => {
-  const [variant, setVariant] = useState(APK_VARIANTS[0]);
   return (
-    <section
-      id="download"
-      className="py-24 bg-zinc-950 relative overflow-hidden"
-    >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="bg-linear-to-b from-purple-600/20 to-indigo-600/20 border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Download Walt
-              </h2>
-              <p className="text-xl text-gray-400 mb-10 leading-relaxed">
-                Take control of your finances. Privately.{" "}
-                <br className="hidden md:block" />
-                Available now for Android.
+    <section id="download" className="section bg-surface-container-lowest">
+      <div className="shell">
+        <SectionHeader eyebrow={download.eyebrow} title={download.title} lede={download.lede} />
+
+        <div className="mt-12 overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low">
+          <div className="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+            <div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Badge tone="primary">v{release.version}</Badge>
+                {date ? (
+                  <span className="text-sm text-on-surface-variant">Released {date}</span>
+                ) : null}
+                {release.stale ? (
+                  <Badge tone="neutral">
+                    <span aria-hidden="true" className="size-1.5 rounded-full bg-warning" />
+                    Version details could not be verified just now
+                  </Badge>
+                ) : null}
+              </div>
+
+              <p className="lede mt-4 text-on-surface-variant">
+                Walt ships as a signed APK from its GitHub releases. Pick the build that matches your
+                device — if you are unsure, take the universal one.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href={variant.url}
-                  download
-                  className="bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors shadow-xl"
-                >
-                  <PlayCircle className="w-6 h-6" />
-                  <div className="text-left">
-                    <p className="text-[10px] uppercase leading-none opacity-60">
-                      Direct Download
-                    </p>
-                    <p className="text-lg leading-tight">Install APK</p>
-                  </div>
-                </a>
-                <div className="bg-zinc-800/50 text-gray-500 px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 border border-white/5 shadow-xl cursor-not-allowed">
-                  <PlayCircle className="w-6 h-6 opacity-40" />
-                  <div className="text-left">
-                    <p className="text-[10px] uppercase leading-none opacity-40">
-                      Coming Soon to
-                    </p>
-                    <p className="text-lg leading-tight">Google Play</p>
-                  </div>
-                </div>
-              </div>
+              <DownloadSelector assets={release.assets} />
 
-              <div className="mt-8">
-                <p className="text-sm text-gray-400 mb-3 flex items-center gap-2">
-                  <Smartphone className="w-4 h-4" />
-                  Select your device:
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {APK_VARIANTS.map((v) => (
-                    <button
-                      key={v.id}
-                      onClick={() => setVariant(v)}
-                      className={`text-left px-4 py-3 rounded-xl border transition-colors ${
-                        variant.id === v.id
-                          ? "bg-purple-600/20 border-purple-500 text-white"
-                          : "bg-zinc-900/60 border-white/10 text-gray-400 hover:border-white/30"
-                      }`}
-                    >
-                      <p className="font-semibold text-sm flex items-center gap-2">
-                        {v.label}
-                        {v.recommended && (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 uppercase">
-                            Recommended
-                          </span>
-                        )}
-                      </p>
-                      <p className="text-xs opacity-70">{v.description}</p>
-                    </button>
+              <p className="mt-5 text-sm text-on-surface-variant">{download.playNote}</p>
+
+              <div className="mt-7">
+                <h3 className="headline text-base text-on-surface">{download.installTitle}</h3>
+                <ol className="mt-4 flex flex-col gap-3">
+                  {download.steps.map((step, index) => (
+                    <li key={step} className="flex gap-3 text-on-surface-variant">
+                      <span
+                        aria-hidden="true"
+                        className="grid size-6 shrink-0 place-items-center rounded-pill bg-primary-container text-xs font-bold text-on-primary-container"
+                      >
+                        {index + 1}
+                      </span>
+                      <span className="lede">{step}</span>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: -10 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative hidden lg:block"
-            >
-              <Pixel9Mockup
-                screenshot="/screenshots/add_tx.png"
-                className="max-w-[320px]"
-              />
-            </motion.div>
+              <div className="mt-7">
+                <h3 className="headline text-base text-on-surface">{download.permissionsTitle}</h3>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {download.permissions.map((permission) => (
+                    <li key={permission} className="flex gap-3 text-sm text-on-surface-variant">
+                      <svg viewBox="0 0 24 24" className="mt-1 size-3.5 shrink-0 text-primary" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="m5 12 5 5L20 7" />
+                      </svg>
+                      {permission}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <aside className="flex flex-col gap-4">
+              <div className="rounded-lg bg-surface-container p-6">
+                <p className="text-sm font-semibold tracking-[0.16em] text-primary uppercase">
+                  Minimum requirements
+                </p>
+                <dl className="mt-4 flex flex-col gap-3 text-sm">
+                  {[
+                    ["Platform", "Android 5.0 (API 21) or newer"],
+                    ["Storage", `${release.assets[0] ? formatBytes(release.assets[0].size) : "—"} for the universal build`],
+                    ["Permissions", "Optional, asked for in context"],
+                    ["Account", "None. There is nothing to sign up for."],
+                    ["Licence", `${site.license}, source available`],
+                  ].map(([term, description]) => (
+                    <div key={term} className="flex items-baseline justify-between gap-4 border-b border-outline-variant pb-3 last:border-0 last:pb-0">
+                      <dt className="text-on-surface-variant">{term}</dt>
+                      <dd className="text-end font-semibold text-on-surface">{description}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              <div className="rounded-lg bg-surface-container p-6">
+                <p className="text-sm font-semibold tracking-[0.16em] text-primary uppercase">
+                  Verify the download
+                </p>
+                <p className="lede mt-3 text-sm text-on-surface-variant">
+                  Every release publishes a <code className="rounded-xs bg-surface px-1.5 py-0.5 font-mono text-xs">checksums.txt</code>{" "}
+                  next to the APKs. The release pipeline refuses to publish an unsigned APK, and
+                  fails the build if the published file does not match its recorded checksum.
+                </p>
+                <a
+                  href={release.htmlUrl}
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                >
+                  See the release
+                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M14 5h5v5M19 5l-8 8M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="rounded-lg border border-outline-variant p-6">
+                <p className="text-sm font-semibold tracking-[0.16em] text-on-surface-variant uppercase">
+                  Google Play
+                </p>
+                <p className="mt-3 flex items-center gap-3">
+                  <span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-lg bg-surface-container-high text-on-surface-variant">
+                    <svg viewBox="0 0 24 24" className="size-5" fill="currentColor">
+                      <path d="M4.5 2.8 15 12 4.5 21.2V2.8Z" opacity="0.9" />
+                    </svg>
+                  </span>
+                  <span className="text-sm text-on-surface-variant">Not listed yet</span>
+                </p>
+              </div>
+            </aside>
           </div>
-
-          {/* Decorative Glows */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/20 blur-[100px] rounded-full" />
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full" />
         </div>
       </div>
     </section>
   );
-};
-
-export default Download;
+}
